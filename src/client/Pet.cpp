@@ -3,6 +3,7 @@
 
 
 Pet::Pet()
+	: Sprite("pet.png")
 {
 }
 

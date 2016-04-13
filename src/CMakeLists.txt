@@ -21,6 +21,8 @@ file(GLOB    CLIENT_SOURCES                        ${CLIENT_DIR}/*.cpp
 file(GLOB    CLIENT_HEADERS                        ${CLIENT_DIR}/*.h
                                                    ${CLIENT_DIR}/*.hpp)
                                                    
+
 include_directories(${COMMON_DIR})
 add_subdirectory(server)
 add_subdirectory(client)
+ 

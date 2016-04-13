@@ -4,4 +4,4 @@ add_executable(Client WIN32
                     ${CLIENT_SOURCES}
                     ${CLIENT_HEADERS})
 
-include_directories(. ${COMMON_DIR}) 
+include_directories(. ${COMMON_DIR})  
