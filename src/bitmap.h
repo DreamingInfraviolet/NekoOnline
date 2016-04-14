@@ -3,6 +3,7 @@
 #include <Shlwapi.h>
 #include <wincodec.h>
 #include <Windows.h>
+#include "matrixd.h"
 
 class Bitmap
 {
@@ -19,7 +20,7 @@ public:
 	~Bitmap();
     Bitmap(const std::string& path);
     void loadFromFile(const std::string& path);
-    int w, h;
+	math::vec2i size;
 
 	HBITMAP get();
 };

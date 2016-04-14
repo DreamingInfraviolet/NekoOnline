@@ -16,8 +16,6 @@ Bitmap::Bitmap()
 		CoInitialize(NULL);
 		firstInit = false;
 	}
-	w = h = 0;
-	
 }
 
 Bitmap::~Bitmap()
@@ -59,8 +57,8 @@ void Bitmap::loadFromFile(const std::string& path)
 			hbitmap = createHBITMAP(ipBitmap);
 			BITMAP bm;
 			GetObject(hbitmap, sizeof(bm), &bm);
-			w = bm.bmWidth;
-			h = bm.bmHeight;
+			size.x = bm.bmWidth;
+			size.y = bm.bmHeight;
 		}
 		catch (...)
 		{
@@ -170,6 +168,5 @@ HBITMAP Bitmap::createHBITMAP(IWICBitmapSource * ipBitmap)
 		hbmp = NULL;
 	}
 
-Return:
 	return hbmp;
 }
