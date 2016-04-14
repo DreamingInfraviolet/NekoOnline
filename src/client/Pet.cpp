@@ -2,8 +2,8 @@
 
 
 
-Pet::Pet()
-	: Sprite("pet.png")
+Pet::Pet(const std::string& path)
+	: Sprite(path)
 {
 }
 
@@ -36,6 +36,7 @@ void Pet::update()
 				delta.x = delta.x / delta.x*(delta.x > 0 ? 1 : -1);
 			if (delta.y != 0)
 				delta.y = delta.y / delta.y*(delta.y > 0 ? 1 : -1);
+			delta *= 2;
 			pos += delta;
 		}
 		break;

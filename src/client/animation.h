@@ -32,7 +32,7 @@ public:
     enum Sequence
     {
         SEQUENCE_IDLE, SEQUENCE_FALLING_ASLEEP, SEQUENCE_SLEEPING, SEQUENCE_WAKING_SLOWLY, SEQUENCE_WAKING_STARTLED, SEQUENCE_RUNNING_LEFT,
-        SEQUENCE_RUNNING_RIGHT, SEQUENCE_RUNNING_UP, RUNNING_DOWN, SEQUENCE_RUNNING_LEFT_TOP, SEQUENCE_RUNNING_RIGHT_TOP,
+        SEQUENCE_RUNNING_RIGHT, SEQUENCE_RUNNING_UP, SEQUENCE_RUNNING_DOWN, SEQUENCE_RUNNING_LEFT_TOP, SEQUENCE_RUNNING_RIGHT_TOP,
         SEQUENCE_RUNNING_LEFT_BOTTOM, SEQUENCE_RUNNING_RIGHT_BOTTOM, SEQUENCE_SCRATCHING_LEFT, SEQUENCE_SCRATCHING_RIGHT,
         SEQUENCE_SCRATCHING_TOP, SEQUENCE_SCRATCHING_BOTTOM, SEQUENCE_COUNT
     };
@@ -64,6 +64,12 @@ private:
 
 	const math::vec2i gridSize = math::vec2i(4, 8);
 
+	//This determines how often a frame should change.
+	const int animationChangeInterval = 3;
+
+	//This variable is used to determine whether the animation frame should be changed
+	int animationChangeCounter = 0;
+
 	Sequence currentSequence = SEQUENCE_IDLE;
 	int framePosition = 0;
 public:
@@ -77,4 +83,6 @@ public:
 
 	/** Draws the pet and advanced the animation frame by one :3 */
 	void draw(HWND hwnd, Pet* pet);
+
+	Sequence getAnimationFromDirection(math::vec2i delta);
 };

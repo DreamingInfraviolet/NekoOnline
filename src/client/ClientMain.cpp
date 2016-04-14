@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include "Pet.h"
 #include "animation.h"
+#include "client_settings.h"
 
 int WINAPI WinMain(HINSTANCE hPrevInstance, HINSTANCE hInstance, LPSTR lpCmdLine, int nShowCmd)
 {
@@ -16,16 +17,9 @@ int WINAPI WinMain(HINSTANCE hPrevInstance, HINSTANCE hInstance, LPSTR lpCmdLine
 	HWND hwnd = CreateWindowEx(WS_EX_LAYERED | WS_EX_TOOLWINDOW, "NekoOnline", NULL, WS_POPUP | WS_VISIBLE,
 		0, 0, 0, 0, NULL, NULL, hInstance, NULL);
 
-	/*
-		HWND hwnd = CreateWindow("NekoOnline", NULL, WS_POPUP,
-		0, 0, 0, 0, NULL, NULL, hInstance, NULL);
-	hwnd = CreateWindowEx(WS_EX_LAYERED, "NekoOnline", NULL, WS_POPUP | WS_VISIBLE,
-		0, 0, 0, 0, hwnd, NULL, hInstance, NULL);
-	*/
-
-	RECT rect;
 
 	// get the current window size and position
+	RECT rect;
 	GetWindowRect(hwnd, &rect);
 
 	// now change the size, position, and Z order 
@@ -40,9 +34,18 @@ int WINAPI WinMain(HINSTANCE hPrevInstance, HINSTANCE hInstance, LPSTR lpCmdLine
 		);
 
 
-	Pet pet;
+	FileSystem::IniParser iniParser;
+	if (!iniParser.parseFile("config.ini"))
+		throw std::runtime_error("Failed parsing config.ini");
+
+	Config::ClientSettings settings;
+	if (!settings.attachParser(&iniParser, "GLOBAL"))
+		throw std::runtime_error("Failed attaching parser.");
+	settings.initialise();
+
+	Pet pet(settings.imageSource);
 	AnimationComponent animation;
-	animation.setCurrentSequence(AnimationComponent::SEQUENCE_FALLING_ASLEEP);
+	
 
 	MSG msg;
 
@@ -55,9 +58,10 @@ int WINAPI WinMain(HINSTANCE hPrevInstance, HINSTANCE hInstance, LPSTR lpCmdLine
 			DispatchMessage(&msg);
 		}
 
-		Sleep(300);
+		Sleep(100);
 
 		pet.update();
+		animation.setCurrentSequence(animation.getAnimationFromDirection(pet.getTargetDelta()));
 		animation.draw(hwnd, &pet);
 	}
 }

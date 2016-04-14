@@ -16,7 +16,7 @@ private:
 	math::vec2i currentTarget = math::vec2i(-1);
 
 public:
-	Pet();
+	Pet(const std::string& path);
 	~Pet();
 
 	math::vec2i centre()
@@ -31,7 +31,10 @@ public:
 		return math::vec2i(rand(1, 500), rand(1, 500));
 	}
 
-
+	math::vec2i getTargetDelta()
+	{
+		return currentTarget - pos;
+	}
 
 };
 
