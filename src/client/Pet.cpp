@@ -21,26 +21,19 @@ void Pet::update()
 	case State::HAPPY:
 		break;
 	case State::NEUTRAL:
-		if (currentTarget == math::vec2i(-1))
+		if (currentTarget.distance(pos) < 5)
 		{
 			currentTarget = getRandomTarget();
+			originalDeltaToTarget = currentTarget - pos;
+			
 		}
-		else if (currentTarget.distance(pos) < 5)
 		{
-			currentTarget = math::vec2i(-1);
-		}
-		else
-		{
-			math::vec2i delta = currentTarget - pos;
-			if (delta.x != 0)
-				delta.x = delta.x / delta.x*(delta.x > 0 ? 1 : -1);
-			if (delta.y != 0)
-				delta.y = delta.y / delta.y*(delta.y > 0 ? 1 : -1);
-			delta *= 2;
-			pos += delta;
+			auto currentDelta = (currentTarget - pos).normalize()*5;
+			pos += currentDelta;
 		}
 		break;
 	case State::CURIOUS:
 		break;
 	}
 }
+

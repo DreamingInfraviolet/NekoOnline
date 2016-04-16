@@ -35,37 +35,32 @@ void AnimationComponent::draw(HWND hwnd, Pet* pet)
 		framePosition = (framePosition + 1) % sequences[currentSequence].size();
 }
 
-AnimationComponent::Sequence AnimationComponent::getAnimationFromDirection(math::vec2i delta)
+AnimationComponent::Sequence AnimationComponent::getAnimationFromDirection(math::vec2 delta)
 {
-	bool left = delta.x < 0;
-	bool right = delta.x > 0;
-	bool up = delta.y < 0;
-	bool down = delta.y > 0;
+	delta.y *= -1;
+	delta.normalize();
+	float pi = acos(-1.0f);
+	float pio8 = pi / 8;
+	float angle = delta.angle();
+	if (angle < 0)
+		angle += pi*2;
 
-	if (!left && !right && !up && !down)
-		return SEQUENCE_IDLE;
-	if (left)
-	{
-		if (!up && !down)
-			return SEQUENCE_RUNNING_LEFT;
-		else if (up)
-			return SEQUENCE_RUNNING_LEFT_TOP;
-		else if (down)
-			return SEQUENCE_RUNNING_LEFT_BOTTOM;
-	}
-	if (right)
-	{
-		if (!up && !down)
-			return SEQUENCE_RUNNING_RIGHT;
-		else if (up)
-			return SEQUENCE_RUNNING_RIGHT_TOP;
-		else if (down)
-			return SEQUENCE_RUNNING_RIGHT_BOTTOM;
-	}
-	if (up)
+	if (angle < pio8)
+		return SEQUENCE_RUNNING_RIGHT;
+	if (angle > pio8 && angle < pio8 * 3)
+		return SEQUENCE_RUNNING_RIGHT_TOP;
+	if (angle > pio8 * 3 && angle < pio8 * 5)
 		return SEQUENCE_RUNNING_UP;
-	if (down)
+	if (angle > pio8 * 5 && angle < pio8 * 7)
+		return SEQUENCE_RUNNING_LEFT_TOP;
+	if (angle > pio8 * 7 && angle < pio8 * 9)
+		return SEQUENCE_RUNNING_LEFT;
+	if (angle > pio8 * 9 && angle < pio8 * 11)
+		return SEQUENCE_RUNNING_LEFT_BOTTOM;
+	if (angle > pio8 * 11 && angle < pio8 * 13)
 		return SEQUENCE_RUNNING_DOWN;
-
-	assert(0);
+	if (angle > pio8 * 13 && angle < pio8 * 15)
+		return SEQUENCE_RUNNING_RIGHT_BOTTOM;
+	return SEQUENCE_RUNNING_RIGHT;
+	
 }

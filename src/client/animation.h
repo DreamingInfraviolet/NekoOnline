@@ -51,7 +51,7 @@ private:
         {FRAME_RUN_RIGHT_0, FRAME_RUN_RIGHT_1},      //RUNNING_RIGHT,
         {FRAME_RUN_UP_0, FRAME_RUN_UP_1},      //RUNNING_UP,
         {FRAME_RUN_DOWN_0,FRAME_RUN_DOWN_1},      //RUNNING_DOWN,
-        {FRAME_RUN_LEFT_UP_1,FRAME_RUN_LEFT_UP_1},      //RUNNING_LEFT_TOP,
+        {FRAME_RUN_LEFT_UP_0,FRAME_RUN_LEFT_UP_1},      //RUNNING_LEFT_TOP,
         {FRAME_RUN_RIGHT_UP_0, FRAME_RUN_RIGHT_UP_1},      //RUNNING_RIGHT_TOP,
         {FRAME_RUN_LEFT_DOWN_0, FRAME_RUN_LEFT_DOWN_1},      //RUNNING_LEFT_BOTTOM,
 		{FRAME_RUN_RIGHT_DOWN_0,FRAME_RUN_RIGHT_DOWN_1},      //RUNNING_RIGHT_BOTTOM,
@@ -84,5 +84,5 @@ public:
 	/** Draws the pet and advanced the animation frame by one :3 */
 	void draw(HWND hwnd, Pet* pet);
 
-	Sequence getAnimationFromDirection(math::vec2i delta);
+	Sequence getAnimationFromDirection(math::vec2 delta);
 };

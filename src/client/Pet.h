@@ -13,28 +13,28 @@ private:
 	int sleepThreshold = 10000;
 	
 	
-	math::vec2i currentTarget = math::vec2i(-1);
+	math::vec2 currentTarget = math::vec2(-1);
+	math::vec2 originalDeltaToTarget;
 
 public:
 	Pet(const std::string& path);
 	~Pet();
 
-	math::vec2i centre()
+	math::vec2 centre()
 	{
-		return pos + size / 2;
+		return pos + math::vec2(size.x, size.y) / 2;
 	}
 
 	void update();
 
-	math::vec2i getRandomTarget()
+	math::vec2 getRandomTarget()
 	{
-		return math::vec2i(rand(1, 500), rand(1, 500));
+		return math::vec2(rand(1, 500), rand(1, 500));
 	}
 
-	math::vec2i getTargetDelta()
+	math::vec2 getTargetDelta()
 	{
-		return currentTarget - pos;
+		return originalDeltaToTarget;
 	}
-
 };
 

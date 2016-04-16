@@ -4,8 +4,14 @@
 #include "animation.h"
 #include "client_settings.h"
 
+#include <io.h>
+#include <fcntl.h>
+
+
 int WINAPI WinMain(HINSTANCE hPrevInstance, HINSTANCE hInstance, LPSTR lpCmdLine, int nShowCmd)
 {
+	std::cout << "Running...\n";
+
 	WNDCLASS wc = { 0 };
 	wc.lpfnWndProc = DefWindowProc;
 	wc.hInstance = hInstance;
@@ -61,7 +67,8 @@ int WINAPI WinMain(HINSTANCE hPrevInstance, HINSTANCE hInstance, LPSTR lpCmdLine
 		Sleep(100);
 
 		pet.update();
-		animation.setCurrentSequence(animation.getAnimationFromDirection(pet.getTargetDelta()));
+		auto currentTargetDelta = pet.getTargetDelta();
+		animation.setCurrentSequence(animation.getAnimationFromDirection(currentTargetDelta));
 		animation.draw(hwnd, &pet);
 	}
 }
