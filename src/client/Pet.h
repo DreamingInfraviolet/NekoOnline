@@ -5,9 +5,9 @@
 class Pet : public Sprite
 {
 private:
-	enum class State { ASLEEP, HAPPY, CURIOUS, NEUTRAL };
+	enum class State { ASLEEP, HAPPY, CURIOUS, NEUTRAL, ACTIVE };
 
-	State state = State::NEUTRAL;
+	State state = State::ACTIVE;
 
 	int sleepyness = 0;
 	int sleepThreshold = 10000;
@@ -25,11 +25,11 @@ public:
 		return pos + math::vec2(size.x, size.y) / 2;
 	}
 
-	void update();
+	void update(math::vec2 screenSize);
 
-	math::vec2 getRandomTarget()
+	math::vec2 getRandomTarget(math::vec2 screenSize)
 	{
-		return math::vec2(rand(1, 500), rand(1, 500));
+		return math::vec2(rand(0.0f, screenSize.x), rand(0.0f, screenSize.y));
 	}
 
 	math::vec2 getTargetDelta()

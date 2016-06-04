@@ -52,7 +52,8 @@ int WINAPI WinMain(HINSTANCE hPrevInstance, HINSTANCE hInstance, LPSTR lpCmdLine
 	Pet pet(settings.imageSource);
 	AnimationComponent animation;
 	
-
+	math::vec2 screenSize(GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN));
+	
 	MSG msg;
 
 	bool quit = false;
@@ -66,7 +67,7 @@ int WINAPI WinMain(HINSTANCE hPrevInstance, HINSTANCE hInstance, LPSTR lpCmdLine
 
 		Sleep(100);
 
-		pet.update();
+		pet.update(screenSize);
 		auto currentTargetDelta = pet.getTargetDelta();
 		animation.setCurrentSequence(animation.getAnimationFromDirection(currentTargetDelta));
 		animation.draw(hwnd, &pet);

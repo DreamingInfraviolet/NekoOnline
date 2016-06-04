@@ -20,9 +20,11 @@ file(GLOB    CLIENT_SOURCES                        ${CLIENT_DIR}/*.cpp
                                                    ${CLIENT_DIR}/*.c)
 file(GLOB    CLIENT_HEADERS                        ${CLIENT_DIR}/*.h
                                                    ${CLIENT_DIR}/*.hpp)
-                                                   
+                                                 
+
+#Boost asio:
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third_party/asio/include/) 
 
 include_directories(${COMMON_DIR})
 add_subdirectory(server)
 add_subdirectory(client) 
- 

@@ -17,7 +17,6 @@ namespace Config
 			serverIp = initialiseVar("serverIp", std::string("127.0.0.1"));
 			serverPort = initialiseVar("serverPort", 59534);
 		}
-        friend class State;
 
 		std::string imageSource;
 		std::string serverIp;
